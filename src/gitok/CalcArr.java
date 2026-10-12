@@ -1,0 +1,75 @@
+package gitok;
+
+//подключение типа (класса) для генерации случайного числа
+import java.util.Random;
+//подключение типа (класса) для чтения данных с клавиатуры
+import java.util.Scanner;
+
+//объявление класса
+public class CalcArr {
+
+    ///заполнение массива случайными числами в диапазоне [-100.0 100.0]
+    public static double[] random_arr(int length) {
+        Random rnd = new Random();
+        double[] arr = new double[length];//new - выделение памяти под массив
+        for (int i = 0; i < length; i++) { //length - переменная отвечающая за длинну массива
+            arr[i] = rnd.nextDouble(-100.0, 100.0);
+        }
+        return arr; //возврат заполненого массива
+    }
+
+    ///Функция для заполнения массива вручную (пользователем с клавиатуры)
+    //in - объект для чтения с клавиатуры
+    public static double[] user_arr(int length, Scanner in) {
+        double[] arr = new double[length];
+        for (int i = 0; i < length; i++) {
+            System.out.printf("x_%d = ", i + 1);
+            arr[i] = in.nextDouble();
+        }
+        return arr; //возврат заполненого массива
+    }
+
+    /// Функция выбора способа заполнения массива
+    public static double[] fill_arr(int length, int var, Scanner in) {
+        if (var == 1) {                 //если 1 то пользовательн заполняет сам
+            return user_arr(length, in);
+        }
+        return random_arr(length);      //Иначе если 0 то заполняеться рандомно
+    }
+
+    /// Вывод массива на экран пользователя
+    public static void print_arr(double[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.printf("%6.2f ", arr[i]);
+
+            //каждые 5 цифр меняем строку
+            if ((i + 1) % 5 == 0) {
+                System.out.println();
+            }
+        }
+        //перевод строки после вывода массива
+        if (arr.length % 5 != 0) {
+            System.out.println();
+        }
+    }
+
+    /// Вычисление суммы квадратов
+    public static double culc_arr(double[] arr) {
+        //объявление переменной суммы типа double
+        double sum = 0;
+        //цикл вычисления последовательности а_1^2 + a_2^2 ... a_n^2
+        for (int i = 0; i < arr.length; i++) {
+            sum += Math.pow(arr[i], 2);//запись каждого элемента последовательности к сумме
+        }
+        return sum;
+    }
+
+    /// Функция для проверки вычислений функции culc_arr
+    static void assert_tests() {
+        //assert - если условие ложно, программа выводит сообщение об ошибке
+        //работает только с флагом запуска -ea
+        assert Math.abs(culc_arr(new double[]{1, 1, 1}) - 3.0) < 0.001 : "Ошибка вычисления функции";
+        assert Math.abs(culc_arr(new double[]{0, 0, 0}) - 0.0) < 0.001 : "Ошибка вычисления функции";
+        assert Math.abs(culc_arr(new double[]{1, 2, 3}) - 14.0) < 0.001 : "Ошибка вычисления функции";
+    }
+}
