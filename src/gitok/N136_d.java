@@ -4,40 +4,53 @@
 package gitok;
 
 import java.util.InputMismatchException;// Импорт исключения, которое возникает при вводе данных неверного типа
-import java.util.Random;//подключение класса для генератции псевдослучайных чисел
 import java.util.Scanner;//подключение типа (класса) для чтения данных с клавиатуры
-
 
 //Обьявление класса, в Java всё находить внутри классов
 //public - значит класс доступен извне, "N136_d" - имя класса,должна совпадать в именем файла
 public class N136_d {
 
-    //писать нужно именно в главном файле так как он вызываеться первым
-    //Функция вывода справки по использованию программы
+    /// Функция вывода справки по использованию программы
     static void printHelp() {
         System.out.println("  Справка:");
+        System.out.println("  Программа находит сумму квадратов a_1^2 + ... + a_n^2");
         System.out.println("  java N136_d               - ввод данных через консоль");
-        System.out.println("  java N136_d <n>     - передача значений через аргументы");
-        System.out.println("  java N136_d -h           - вывод этой справки");
-        System.out.println("  java N136_d --help         - вывод этой справки");
+        System.out.println("  java N136_d -h            - вывод этой справки");
+        System.out.println("  java N136_d --help        - вывод этой справки");
     }
 
-    //главный метод, String[] args - массив строк, переданныъ при запуске программы
+    /// Функция выбора пользователя по заполнению массива
+    // in - объект для чтения с клавиатуры
+    // return - либо 1, либо 0
+    static int input_selection(Scanner in) {
+        int var = -1;//переменная для выбора пользователя
+        System.out.println("Выберите способ заполнения массива");
+        System.out.println("0 - массив заполнится автоматически, 1 - массив заполняете вы");
+        while (var != 0 && var != 1) {//цикл пока не будет введено 0 или 1
+            System.out.println("Введите число 1 или 0");
+            var = in.nextInt();
+        }
+        return var;
+    }
+
+    //главный метод, String[] args - массив строк, переданных при запуске программы
     public static void main(String[] args) {
+
+        CalcArr.assert_tests();//проверка функции вычисления
 
         //проходим по всем аргументам командной строки
         for (String arg : args) {
             //если среди них есть -h или --help
             if (arg.equals("-h") || arg.equals("--help")) {
                 printHelp(); //выводим справку
-                return;//завершаем, можно return заменить на break и программа продолжиться
+                return;//завершаем
             }
         }
 
         //часть кода в которой может быть ошибка
         try {
             Scanner in = new Scanner(System.in);//Создание обьекта для ввода с клавиатуры
-            System.out.println("Введите значение n:");//println - выводит значение и переводит курсор на новую строку
+            System.out.print("Введите значение n: ");
 
             int n = in.nextInt();//считывание числа n с клавиатуры
 
@@ -47,27 +60,20 @@ public class N136_d {
                 return;
             }
 
-            //new - выделение памяти для всех не простых типов данных
-            //объявление и определение динамического массива
-            CalcArr.arr = new double[n];
-            //объявление переменной типа Random
-            CalcArr.rnd = new Random();
+            int var = input_selection(in);
 
-            //заполнение массива случайными числами
-            CalcArr.random_arr();
+            //массив создаётся в функции и возвращается в N136_d
+            double[] arr = CalcArr.fill_arr(n, var, in);
 
-            //вывод массива на экран пользователя
-            CalcArr.print_arr();
+            System.out.println("Заполненный массив:");
+            CalcArr.print_arr(arr);
 
             //вычисление суммы квадратов и вывод её на экран
-            System.out.printf("Сумма квадратов: %.2f%n", CalcArr.culc_arr());
+            System.out.printf("Сумма квадратов: %.2f%n", CalcArr.culc_arr(arr));
+
             //если нашлась ошибка InputMismatchException то выводит сообщение
         } catch (InputMismatchException e) {
-            //вывод сообщения об ошибке
             System.out.println("Ошибка: необходимо вводить только числа.");
-        } catch (NegativeArraySizeException e) {
-            //вывод сообщения об ошибке при отрицательном размере массива
-            System.out.println("Ошибка: размер массива не может быть отрицательным.");
         }
     }
 }
