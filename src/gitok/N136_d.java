@@ -19,20 +19,6 @@ public class N136_d {
         System.out.println("  java N136_d --help        - вывод этой справки");
     }
 
-    /// Функция выбора пользователя по заполнению массива
-    // in - объект для чтения с клавиатуры
-    // return - либо 1, либо 0
-    static int input_selection(Scanner in) {
-        int var = -1;//переменная для выбора пользователя
-        System.out.println("Выберите способ заполнения массива");
-        System.out.println("0 - массив заполнится автоматически, 1 - массив заполняете вы");
-        while (var != 0 && var != 1) {//цикл пока не будет введено 0 или 1
-            System.out.println("Введите число 1 или 0");
-            var = in.nextInt();//in.nextInt() - метод который считывает с клавиатуры целое число типа int
-        }
-        return var;
-    }
-
     //главный метод, String[] args - массив строк, переданных при запуске программы
     public static void main(String[] args) {
 
@@ -54,7 +40,7 @@ public class N136_d {
 
             int n = in.nextInt();//считывание числа n с клавиатуры
 
-            int var = input_selection(in);
+            int var = CalcArr.input_selection(in);
 
             //массив создаётся в функции и возвращается в N136_d
             double[] arr = CalcArr.fill_arr(n, var, in);

@@ -29,6 +29,20 @@ public class CalcArr {
         return arr; //возврат заполненого массива
     }
 
+    /// Функция выбора пользователя по заполнению массива
+    // in - объект для чтения с клавиатуры
+    // return - либо 1, либо 0
+    static int input_selection(Scanner in) {
+        int var = -1;//переменная для выбора пользователя
+        System.out.println("Выберите способ заполнения массива");
+        System.out.println("0 - массив заполнится автоматически \n1 - массив заполняете вы");
+        while (var != 0 && var != 1) {//цикл пока не будет введено 0 или 1
+            System.out.println("Введите число 1 или 0");
+            var = in.nextInt();//in.nextInt() - метод который считывает с клавиатуры целое число типа int
+        }
+        return var;
+    }
+
     /// Функция выбора способа заполнения массива
     public static double[] fill_arr(int length, int var, Scanner in) {
         if (var == 1) {                 //если 1 то пользовательн заполняет сам
