@@ -28,7 +28,7 @@ public class N136_d {
         System.out.println("0 - массив заполнится автоматически, 1 - массив заполняете вы");
         while (var != 0 && var != 1) {//цикл пока не будет введено 0 или 1
             System.out.println("Введите число 1 или 0");
-            var = in.nextInt();
+            var = in.nextInt();//in.nextInt() - метод который считывает с клавиатуры целое число типа int
         }
         return var;
     }
@@ -54,12 +54,6 @@ public class N136_d {
 
             int n = in.nextInt();//считывание числа n с клавиатуры
 
-            //проверка на корректность введённого значения
-            if (n <= 0) {
-                System.out.println("Ошибка: число n должно быть положительным.");
-                return;
-            }
-
             int var = input_selection(in);
 
             //массив создаётся в функции и возвращается в N136_d
@@ -74,6 +68,8 @@ public class N136_d {
             //если нашлась ошибка InputMismatchException то выводит сообщение
         } catch (InputMismatchException e) {
             System.out.println("Ошибка: необходимо вводить только числа.");
+        } catch (NegativeArraySizeException e) {
+            System.out.println("Ошибка: необходимо вводить только положительное число n.");
         }
     }
 }
