@@ -75,5 +75,5 @@ public class N136_d {
         } catch (InputMismatchException e) {
             System.out.println("Ошибка: необходимо вводить только числа.");
         }
-    }/
+    }
 }

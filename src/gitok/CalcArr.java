@@ -71,5 +71,5 @@ public class CalcArr {
         assert Math.abs(culc_arr(new double[]{1, 1, 1}) - 3.0) < 0.001 : "Ошибка вычисления функции";
         assert Math.abs(culc_arr(new double[]{0, 0, 0}) - 0.0) < 0.001 : "Ошибка вычисления функции";
         assert Math.abs(culc_arr(new double[]{1, 2, 3}) - 14.0) < 0.001 : "Ошибка вычисления функции";
-    }/
+    }
 }
