@@ -8,17 +8,21 @@ import java.util.Scanner;
 //объявление класса
 public class CalcArr {
 
-    ///заполнение массива случайными числами в диапазоне [-100.0 100.0]
-    public static double[] random_arr(int length) {
+    /// заполнение массива случайными числами в диапазоне [min, max]
+    public static double[] random_arr(int length, double min, double max) {
+        //если min не меньше max, диапазон некорректный, бросаем исключение
+        if (min >= max) {
+            throw new IllegalArgumentException("min должен быть меньше max");
+        }
         Random rnd = new Random();
         double[] arr = new double[length];//new - выделение памяти под массив
         for (int i = 0; i < length; i++) { //length - переменная отвечающая за длинну массива
-            arr[i] = rnd.nextDouble(-100.0, 100.0);
+            arr[i] = rnd.nextDouble(min, max);
         }
         return arr; //возврат заполненого массива
     }
 
-    ///Функция для заполнения массива вручную (пользователем с клавиатуры)
+    /// Функция для заполнения массива вручную (пользователем с клавиатуры)
     //in - объект для чтения с клавиатуры
     public static double[] user_arr(int length, Scanner in) {
         double[] arr = new double[length];
@@ -48,7 +52,12 @@ public class CalcArr {
         if (var == 1) {                 //если 1 то пользовательн заполняет сам
             return user_arr(length, in);
         }
-        return random_arr(length);      //Иначе если 0 то заполняеться рандомно
+        //иначе заполняется рандомно, диапазон вводит пользователь
+        System.out.print("Введите min: ");
+        double min = in.nextDouble();
+        System.out.print("Введите max: ");
+        double max = in.nextDouble();
+        return random_arr(length, min, max);
     }
 
     /// Вывод массива на экран пользователя
@@ -68,6 +77,8 @@ public class CalcArr {
     }
 
     /// Вычисление суммы квадратов
+    ///
+    ///
     public static double culc_arr(double[] arr) {
         //объявление переменной суммы типа double
         double sum = 0;

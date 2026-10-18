@@ -15,6 +15,8 @@ public class N136_d {
         System.out.println("  Справка:");
         System.out.println("  Программа находит сумму квадратов a_1^2 + ... + a_n^2");
         System.out.println("  java N136_d               - ввод данных через консоль");
+        System.out.println("  java N136_d <n>           - передача значения n через аргумент");
+        System.out.println("  java N136_d <n> <1|0>     - передача n и способа заполнения массива через аргументы");
         System.out.println("  java N136_d -h            - вывод этой справки");
         System.out.println("  java N136_d --help        - вывод этой справки");
     }
@@ -36,11 +38,32 @@ public class N136_d {
         //часть кода в которой может быть ошибка
         try {
             Scanner in = new Scanner(System.in);//Создание обьекта для ввода с клавиатуры
-            System.out.print("Введите значение n: ");
 
-            int n = in.nextInt();//считывание числа n с клавиатуры
+            int n;//объявляем заранее, так как значение присваивается в разных ветках if/else
+            int var;//способ заполнения массива (1 или 0)
 
-            int var = CalcArr.input_selection(in);
+            //если передан хотя бы 1 аргумент, берём n из него
+            //new Scanner(строка).nextInt() - читает число из строки так же, как с клавиатуры
+            if (args.length >= 1) {
+                n = new Scanner(args[0]).nextInt();
+            } else {
+                //иначе вводим n с клавиатуры, как раньше
+                System.out.print("Введите значение n: ");
+                n = in.nextInt();//считывание числа n с клавиатуры и возвращает введённое число
+            }
+
+            //если передано 2 аргумента, берём способ заполнения из второго
+            if (args.length >= 2) {
+                var = new Scanner(args[1]).nextInt();
+                //допустимы только значения 1 и 0
+                if (var != 0 && var != 1) {
+                    System.out.println("Ошибка: способ заполнения должен быть 1 или 0.");
+                    return;//завершаем программу
+                }
+            } else {
+                //иначе выбор вводится с клавиатуры, как раньше
+                var = CalcArr.input_selection(in);
+            }
 
             //массив создаётся в функции и возвращается в N136_d
             double[] arr = CalcArr.fill_arr(n, var, in);
@@ -54,8 +77,8 @@ public class N136_d {
             //если нашлась ошибка InputMismatchException то выводит сообщение
         } catch (InputMismatchException e) {
             System.out.println("Ошибка: необходимо вводить только числа.");
-        } catch (NegativeArraySizeException e) {
-            System.out.println("Ошибка: необходимо вводить только положительное число n.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: min должен быть меньше max" );
         }
     }
 }
