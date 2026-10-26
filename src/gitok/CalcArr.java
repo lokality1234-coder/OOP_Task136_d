@@ -8,7 +8,13 @@ import java.util.Scanner;
 //объявление класса
 public class CalcArr {
 
-    /// заполнение массива случайными числами в диапазоне [min, max]
+    /**
+     * Функция заполнения массива случайными числами в диапазоне [min, max]
+     * @param length
+     * @param min
+     * @param max
+     * @return
+     */
     public static double[] random_arr(int length, double min, double max) {
         //если min не меньше max, диапазон некорректный, бросаем исключение
         if (min >= max) {
@@ -22,8 +28,13 @@ public class CalcArr {
         return arr; //возврат заполненого массива
     }
 
-    /// Функция для заполнения массива вручную (пользователем с клавиатуры)
-    //in - объект для чтения с клавиатуры
+
+    /**
+     * Функция для заполнения массива вручную (пользователем с клавиатуры)
+     * @param length
+     * @param in - объект для чтения с клавиатуры
+     * @return
+     */
     public static double[] user_arr(int length, Scanner in) {
         double[] arr = new double[length];
         for (int i = 0; i < length; i++) {
@@ -33,9 +44,12 @@ public class CalcArr {
         return arr; //возврат заполненого массива
     }
 
-    /// Функция выбора пользователя по заполнению массива
-    // in - объект для чтения с клавиатуры
-    // return - либо 1, либо 0
+
+    /**
+     * Функция выбора пользователя по заполнению массива
+     * @param in - объект для чтения с клавиатуры
+     * @return - либо 1, либо 0
+     */
     static int input_selection(Scanner in) {
         int var = -1;//переменная для выбора пользователя
         System.out.println("Выберите способ заполнения массива");
@@ -47,7 +61,14 @@ public class CalcArr {
         return var;
     }
 
-    /// Функция выбора способа заполнения массива
+
+    /**
+     * Функция выбора способа заполнения массива
+     * @param length
+     * @param var
+     * @param in
+     * @return
+     */
     public static double[] fill_arr(int length, int var, Scanner in) {
         if (var == 1) {                 //если 1 то пользовательн заполняет сам
             return user_arr(length, in);
@@ -60,7 +81,11 @@ public class CalcArr {
         return random_arr(length, min, max);
     }
 
-    /// Вывод массива на экран пользователя
+
+    /**
+     * Вывод массива на экран пользователя
+     * @param arr
+     */
     public static void print_arr(double[] arr) {
         for (int i = 0; i < arr.length; i++) {
             System.out.printf("%6.2f ", arr[i]);
@@ -76,9 +101,11 @@ public class CalcArr {
         }
     }
 
-    /// Вычисление суммы квадратов
-    ///
-    ///
+    /**
+     * Вычисление суммы квадратов
+     * @param arr
+     * @return
+     */
     public static double culc_arr(double[] arr) {
         //объявление переменной суммы типа double
         double sum = 0;
@@ -86,7 +113,7 @@ public class CalcArr {
         for (int i = 0; i < arr.length; i++) {
             sum += Math.pow(arr[i], 2);//запись каждого элемента последовательности к сумме
         }
-        return sum;
+        return sum;//добавить бросок исключения!!!!!!!!!!!
     }
 
     /// Функция для проверки вычислений функции culc_arr
